@@ -1,8 +1,8 @@
 Package: org.thebigboss.facedetectionduringvideorecording
 Name: FaceDetectionDuringVideo
 Conflicts: org.thebigboss.facedetectionvideo4s
-Depends: mobilesubstrate, preferenceloader, cy+model.ipod (> 5) | cy+model.iphone (> 4) | cy+model.ipad (>= 3.4) | cy+model.ipad (> 2), firmware (>= 6.0)
-Version: 1.0
+Depends: mobilesubstrate, preferenceloader, firmware (>= 6.0)
+Version: 1.1
 Architecture: iphoneos-arm
 Description: Enable Face Detection while recording Video!
 Author: PoomSmart
