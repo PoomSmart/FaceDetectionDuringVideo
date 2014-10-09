@@ -8,7 +8,7 @@
 - (void)setFaceDetectionEnabled:(BOOL)enabled forceDisableImageProcessing:(BOOL)disableIP;
 @end
 
-%group Common
+%group preiOS8
 
 %hook AVCaptureFigVideoDevice
 
@@ -18,10 +18,6 @@
 }
 
 %end
-
-%end
-
-%group preiOS8
 
 %hook PLCameraController
 
@@ -37,6 +33,15 @@
 
 %group iOS8
 
+%hook AVCaptureFigVideoDevice_FigRecorder
+
+- (BOOL)isFaceDetectionDuringVideoPreviewSupported
+{
+	return YES;
+}
+
+%end
+
 %hook CAMCaptureController
 
 - (void)startVideoCapture
@@ -51,10 +56,13 @@
 
 %ctor
 {
-	%init(Common);
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	dlopen("/System/Library/PrivateFrameworks/PhotoLibrary.framework/PhotoLibrary", RTLD_LAZY);
+	dlopen("/System/Library/PrivateFrameworks/CameraKit.framework/CameraKit", RTLD_LAZY);
 	if (isiOS8) {
 		%init(iOS8);
 	} else {
 		%init(preiOS8);
 	}
+	[pool drain];
 }
