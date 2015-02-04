@@ -10,15 +10,6 @@
 
 %group preiOS8
 
-%hook AVCaptureFigVideoDevice
-
-- (BOOL)isFaceDetectionDuringVideoPreviewSupported
-{
-	return YES;
-}
-
-%end
-
 %hook PLCameraController
 
 - (void)startVideoCapture
@@ -33,18 +24,9 @@
 
 %group iOS8
 
-%hook AVCaptureFigVideoDevice_FigRecorder
-
-- (BOOL)isFaceDetectionDuringVideoPreviewSupported
-{
-	return YES;
-}
-
-%end
-
 %hook CAMCaptureController
 
-- (void)startVideoCapture
+- (void)_updateFocusAndExposureForVideoRecording
 {
 	%orig;
 	[self setFaceDetectionEnabled:YES forceDisableImageProcessing:NO];
@@ -54,11 +36,21 @@
 
 %end
 
+%hook AVCaptureFigVideoDevice
+
+- (BOOL)isFaceDetectionDuringVideoPreviewSupported
+{
+	return YES;
+}
+
+%end
+
 %ctor
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	dlopen("/System/Library/PrivateFrameworks/PhotoLibrary.framework/PhotoLibrary", RTLD_LAZY);
 	dlopen("/System/Library/PrivateFrameworks/CameraKit.framework/CameraKit", RTLD_LAZY);
+	%init();
 	if (isiOS8) {
 		%init(iOS8);
 	} else {
