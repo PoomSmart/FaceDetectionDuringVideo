@@ -1,13 +1,5 @@
 #import "../PS.h"
 
-@interface PLCameraController
-- (void)setFaceDetectionEnabled:(BOOL)enabled;
-@end
-
-@interface CAMCaptureController
-- (void)setFaceDetectionEnabled:(BOOL)enabled forceDisableImageProcessing:(BOOL)disableIP;
-@end
-
 %group preiOS8
 
 %hook PLCameraController
