@@ -79,13 +79,13 @@ BOOL override = NO;
 	dlopen("/System/Library/Frameworks/AVFoundation.framework/AVFoundation", RTLD_LAZY);
 	%init;
 	if (isiOS9Up) {
-		dlopen("/System/Library/PrivateFrameworks/CameraUI.framework/CameraUI", RTLD_LAZY);
+		openCamera9();
 		%init(iOS9);
 	} else if (isiOS8) {
-		dlopen("/System/Library/PrivateFrameworks/CameraKit.framework/CameraKit", RTLD_LAZY);
+		openCamera8();
 		%init(iOS8);
 	} else {
-		dlopen("/System/Library/PrivateFrameworks/PhotoLibrary.framework/PhotoLibrary", RTLD_LAZY);
+		openCamera7();
 		%init(preiOS8);
 	}
 }
